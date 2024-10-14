@@ -16,6 +16,7 @@ public class SecurityAuditorAware implements AuditorAware<User> {
         return Optional.ofNullable(SecurityContextHolder.getContext())
             .map(SecurityContext::getAuthentication)
             .map(Authentication::getPrincipal)
+            .filter(AuthUser.class::isInstance)
             .map(AuthUser.class::cast)
             .map(AuthUser::user);
     }

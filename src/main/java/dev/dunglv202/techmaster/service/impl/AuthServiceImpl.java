@@ -27,19 +27,12 @@ import static dev.dunglv202.techmaster.util.AuthHelper.JWT_TOKEN_TYPE_REFRESH;
 
 @Service
 @RequiredArgsConstructor
-public class AuthServiceImpl implements AuthService, UserDetailsService {
+public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
     private final AuthHelper authHelper;
     private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByPhoneOrEmail(username)
-            .orElseThrow(() -> new UsernameNotFoundException(username));
-        return new AuthUser(user);
-    }
 
     @Override
     public AuthResult login(Credential credential) {

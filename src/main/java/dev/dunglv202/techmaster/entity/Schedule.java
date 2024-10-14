@@ -1,6 +1,8 @@
 package dev.dunglv202.techmaster.entity;
 
 import dev.dunglv202.techmaster.model.Seat;
+import dev.dunglv202.techmaster.model.SeatPosition;
+import dev.dunglv202.techmaster.util.SeatConverter;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,4 +34,23 @@ public class Schedule extends Auditable {
 
     @JdbcTypeCode(SqlTypes.JSON)
     private List<List<Seat>> seats;
+
+    @Embedded
+    private Prices prices;
+
+    public Seat getSeat(String seat) {
+        SeatPosition position = SeatConverter.parse(seat);
+        return seats.get(position.getRow()).get(position.getColumn());
+    }
+
+    public void takeSeat(Seat seat) {
+        seat.setStatus(Seat.Status.OCCUPIED);
+    }
+
+    public double getPrice(Seat seat) {
+        return switch (seat.getType()) {
+            case NORMAL -> prices.getNormalPrice();
+            case VIP -> prices.getVipPrice();
+        };
+    }
 }

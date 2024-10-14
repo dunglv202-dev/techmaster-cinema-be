@@ -2,10 +2,15 @@ package dev.dunglv202.techmaster.util;
 
 import dev.dunglv202.techmaster.dto.resp.AuthResult;
 import dev.dunglv202.techmaster.entity.User;
+import dev.dunglv202.techmaster.model.auth.AuthUser;
 import dev.dunglv202.techmaster.model.prop.AuthProperties;
+import jakarta.annotation.Nullable;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -23,6 +28,13 @@ public class AuthHelper {
 
     private final AuthProperties authProperties;
     private final JwtProvider jwtProvider;
+
+    @Nullable
+    public User getSignedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication instanceof AnonymousAuthenticationToken) return null;
+        return ((AuthUser) authentication.getPrincipal()).user();
+    }
 
     public void addAuthCookies(HttpServletResponse response, AuthResult authResult) {
         Cookie accessCookie = makeHttpCookie(

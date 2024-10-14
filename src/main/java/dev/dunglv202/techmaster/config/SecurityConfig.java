@@ -27,7 +27,6 @@ public class SecurityConfig {
     private final String[] publicEndpoints = new String[] {
         "/"
     };
-    public static final String ACCESS_TOKEN_COOKIE = "accessToken";
 
     private final JwtAuthFilter jwtAuthFilter;
 

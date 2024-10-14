@@ -1,10 +1,10 @@
 package dev.dunglv202.techmaster.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.dunglv202.techmaster.config.SecurityConfig;
 import dev.dunglv202.techmaster.dto.ApiError;
 import dev.dunglv202.techmaster.dto.ApiResp;
 import dev.dunglv202.techmaster.model.auth.AuthUser;
+import dev.dunglv202.techmaster.util.AuthHelper;
 import dev.dunglv202.techmaster.util.JwtProvider;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -46,7 +46,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         // check jwt token
         Optional<Cookie> tokenCookie = Arrays.stream(request.getCookies())
-            .filter(cookie -> SecurityConfig.ACCESS_TOKEN_COOKIE.equals(cookie.getName()))
+            .filter(cookie -> AuthHelper.ACCESS_TOKEN_COOKIE.equals(cookie.getName()))
             .findFirst();
         if (tokenCookie.isPresent()) {
             try {

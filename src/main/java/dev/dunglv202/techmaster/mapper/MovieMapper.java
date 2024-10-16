@@ -1,5 +1,6 @@
 package dev.dunglv202.techmaster.mapper;
 
+import dev.dunglv202.techmaster.dto.resp.DetailMovieDTO;
 import dev.dunglv202.techmaster.dto.resp.MovieDTO;
 import dev.dunglv202.techmaster.entity.Movie;
 import org.mapstruct.Mapper;
@@ -10,4 +11,6 @@ public interface MovieMapper {
     MovieMapper INSTANCE = Mappers.getMapper(MovieMapper.class);
 
     MovieDTO toMovieDTO(Movie movie);
+
+    DetailMovieDTO toDetailMovieDTO(Movie movie);
 }

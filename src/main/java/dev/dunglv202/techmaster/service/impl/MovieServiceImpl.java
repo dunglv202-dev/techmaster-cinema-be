@@ -1,6 +1,8 @@
 package dev.dunglv202.techmaster.service.impl;
 
+import dev.dunglv202.techmaster.dto.resp.DetailMovieDTO;
 import dev.dunglv202.techmaster.dto.resp.MovieDTO;
+import dev.dunglv202.techmaster.exception.ClientVisibleException;
 import dev.dunglv202.techmaster.mapper.MovieMapper;
 import dev.dunglv202.techmaster.repository.MovieRepository;
 import dev.dunglv202.techmaster.service.MovieService;
@@ -17,5 +19,12 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<MovieDTO> getAllMovies() {
         return movieRepository.findAll().stream().map(MovieMapper.INSTANCE::toMovieDTO).toList();
+    }
+
+    @Override
+    public DetailMovieDTO getDetailMovie(long id) {
+        return movieRepository.findById(id)
+            .map(MovieMapper.INSTANCE::toDetailMovieDTO)
+            .orElseThrow(() -> new ClientVisibleException("{movie.invalid}"));
     }
 }

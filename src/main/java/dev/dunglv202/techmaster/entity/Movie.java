@@ -20,9 +20,16 @@ public class Movie extends Auditable {
 
     private String thumbnail;
 
+    private String trailer;
+
     private int durationInMinutes;
 
     private String description;
+
+    private String director;
+
+    @ElementCollection
+    private List<String> actors;
 
     @ManyToMany
     private List<Category> categories;

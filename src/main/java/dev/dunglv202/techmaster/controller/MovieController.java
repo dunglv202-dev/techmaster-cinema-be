@@ -4,6 +4,8 @@ import dev.dunglv202.techmaster.dto.req.ScheduleFilter;
 import dev.dunglv202.techmaster.dto.resp.CinemaSchedule;
 import dev.dunglv202.techmaster.dto.resp.DetailMovieDTO;
 import dev.dunglv202.techmaster.dto.resp.MovieDTO;
+import dev.dunglv202.techmaster.model.Pagination;
+import dev.dunglv202.techmaster.model.ResultPage;
 import dev.dunglv202.techmaster.service.MovieService;
 import dev.dunglv202.techmaster.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +24,8 @@ public class MovieController {
     private final ScheduleService scheduleService;
 
     @GetMapping
-    public List<MovieDTO> getAllMovies() {
-        return movieService.getAllMovies();
+    public ResultPage<MovieDTO> getAllMovies(Pagination pagination) {
+        return movieService.getAllMovies(pagination);
     }
 
     @GetMapping("/{id}")

@@ -40,7 +40,6 @@ public class TicketServiceImpl implements TicketService {
         booking.getSeats().forEach(pos -> {
             Seat seat = schedule.getSeat(pos);
             if (seat.isUnavailable()) unavailableSeats.add(pos);
-            else schedule.takeSeat(seat);
         });
         if (!unavailableSeats.isEmpty()) {
             throw new ClientVisibleException("{seat.unavailable}: " + String.join(", ", unavailableSeats));

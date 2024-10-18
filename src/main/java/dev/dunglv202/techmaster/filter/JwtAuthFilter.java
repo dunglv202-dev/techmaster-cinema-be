@@ -53,12 +53,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             try {
                 validateAccessToken(tokenCookie.get().getValue());
             } catch (ExpiredJwtException e) {
-                String resp = new ObjectMapper().writeValueAsString(ApiResp.code(1));
+                String resp = new ObjectMapper().writeValueAsString(ApiError.code(401).message("{jwt.expired}"));
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 response.getWriter().write(resp);
                 return;
             } catch (JwtException e) {
-                String resp = new ObjectMapper().writeValueAsString(ApiError.code(1));
+                String resp = new ObjectMapper().writeValueAsString(ApiError.code(401).message("{jwt.invalid}"));
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 response.getWriter().write(resp);
                 return;

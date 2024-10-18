@@ -6,6 +6,7 @@ import dev.dunglv202.techmaster.exception.ClientVisibleException;
 import dev.dunglv202.techmaster.model.PaymentInfo;
 import dev.dunglv202.techmaster.model.prop.VNPAYProperties;
 import dev.dunglv202.techmaster.repository.BookingRepository;
+import dev.dunglv202.techmaster.repository.ScheduleRepository;
 import dev.dunglv202.techmaster.service.PaymentService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -41,6 +42,7 @@ public class VNPAYPaymentService implements PaymentService {
 
     private final VNPAYProperties vnpayProperties;
     private final BookingRepository bookingRepository;
+    private final ScheduleRepository scheduleRepository;
 
     @Override
     public String buildPaymentUrl(PaymentInfo paymentInfo) {
@@ -89,9 +91,11 @@ public class VNPAYPaymentService implements PaymentService {
             throw new ClientAbortException("{payment.insufficient}");
         }
 
-        // Mark as paid
+        // Mark as paid & take seat
         booking.setStatus(BookingStatus.PAID);
         bookingRepository.save(booking);
+        booking.getSchedule().takeSeats(booking.getSeats());
+        scheduleRepository.save(booking.getSchedule());
         response.sendRedirect("/me/tickets");
     }
 

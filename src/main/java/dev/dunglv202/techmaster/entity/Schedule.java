@@ -46,14 +46,14 @@ public class Schedule extends Auditable {
         return seats.get(position.getRow()).get(position.getColumn());
     }
 
-    public void takeSeat(Seat seat) {
-        seat.setStatus(Seat.Status.OCCUPIED);
-    }
-
     public double getPrice(Seat seat) {
         return switch (seat.getType()) {
             case STANDARD -> prices.getNormalPrice();
             case VIP -> prices.getVipPrice();
         };
+    }
+
+    public void takeSeats(List<String> seats) {
+        seats.stream().map(this::getSeat).forEach(seat -> seat.setStatus(Seat.Status.OCCUPIED));
     }
 }

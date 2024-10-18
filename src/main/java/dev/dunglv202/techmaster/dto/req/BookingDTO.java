@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class PlacementDTO {
+public class BookingDTO {
     private long scheduleId;
 
     @Size(min = 1)

@@ -1,6 +1,6 @@
 package dev.dunglv202.techmaster.entity;
 
-import dev.dunglv202.techmaster.constant.PlacementStatus;
+import dev.dunglv202.techmaster.constant.BookingStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class Placement extends Auditable {
+public class Booking extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,5 +30,5 @@ public class Placement extends Auditable {
     private LocalDateTime timestamp;
 
     @Enumerated(EnumType.STRING)
-    private PlacementStatus status;
+    private BookingStatus status;
 }

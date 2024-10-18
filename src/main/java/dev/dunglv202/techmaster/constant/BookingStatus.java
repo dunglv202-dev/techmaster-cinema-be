@@ -1,6 +1,6 @@
 package dev.dunglv202.techmaster.constant;
 
-public enum PlacementStatus {
+public enum BookingStatus {
     PENDING_PAYMENT,
     PAID,
     CANCELED

@@ -1,6 +1,6 @@
 package dev.dunglv202.techmaster.controller;
 
-import dev.dunglv202.techmaster.dto.req.PlacementDTO;
+import dev.dunglv202.techmaster.dto.req.BookingDTO;
 import dev.dunglv202.techmaster.service.TicketService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class TicketController {
     private final TicketService ticketService;
 
-    @PostMapping("/place")
-    public void placeTickets(@Valid @RequestBody PlacementDTO placement) {
-        ticketService.placeTickets(placement);
+    @PostMapping("/book")
+    public void placeTickets(@Valid @RequestBody BookingDTO bookingDTO) {
+        ticketService.placeTickets(bookingDTO);
     }
 }

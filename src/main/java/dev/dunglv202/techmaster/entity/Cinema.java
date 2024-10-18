@@ -2,7 +2,6 @@ package dev.dunglv202.techmaster.entity;
 
 import dev.dunglv202.techmaster.model.Seat;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

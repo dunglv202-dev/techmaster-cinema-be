@@ -1,7 +1,6 @@
 package dev.dunglv202.techmaster.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import dev.dunglv202.techmaster.util.SeatConverter;
 import lombok.Getter;
 import lombok.Setter;
 

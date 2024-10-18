@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
     @ExceptionHandler(ClientVisibleException.class)
     public ResponseEntity<?> visibleException(ClientVisibleException e) {
-        return ResponseEntity.status(e.getStatus()).body(e.getMessage());
+        return ResponseEntity.status(e.getStatus()).body(ApiError.code(e.getCode()).message(e.getMessage()));
     }
 
     @ExceptionHandler(AccessDeniedException.class)

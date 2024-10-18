@@ -41,7 +41,7 @@ public class AuthHelper {
             ACCESS_TOKEN_COOKIE,
             authResult.getAccessToken(),
             ACCESS_TOKEN_COOKIE_PATH,
-            authProperties.getTokenLifetime()
+            authProperties.getRefreshLifetime()
         );
         response.addCookie(accessCookie);
 

@@ -21,6 +21,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,11 @@ public class TicketServiceImpl implements TicketService {
     public void bookTickets(BookingRequest booking) {
         Schedule schedule = scheduleRepository.findById(booking.getScheduleId())
             .orElseThrow(() -> new ClientVisibleException("{schedule.invalid}"));
+
+        // Check if able to book ticket
+        if (!schedule.getStart().isAfter(LocalDateTime.now())) {
+            throw new ClientVisibleException("{schedule.invalid}");
+        }
 
         // Check if any sheet unavailable
         List<String> unavailableSeats = new ArrayList<>();

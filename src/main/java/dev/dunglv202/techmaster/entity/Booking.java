@@ -35,6 +35,8 @@ public class Booking extends Auditable {
 
     private double grandTotal;
 
+    private String paymentRef;
+
     private LocalDateTime paymentDeadline;
 
     @PrePersist
@@ -44,5 +46,9 @@ public class Booking extends Auditable {
             .map(schedule::getSeat).map(schedule::getPrice)
             .reduce(Double::sum).orElse(0.0);
         paymentDeadline = timestamp.plus(GeneralConfig.PAYMENT_DEADLINE);
+    }
+
+    public boolean isPayable() {
+        return status == BookingStatus.PENDING_PAYMENT && LocalDateTime.now().isBefore(paymentDeadline);
     }
 }

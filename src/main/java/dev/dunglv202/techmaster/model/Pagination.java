@@ -2,7 +2,6 @@ package dev.dunglv202.techmaster.model;
 
 import lombok.Setter;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 @Setter
 public class Pagination {

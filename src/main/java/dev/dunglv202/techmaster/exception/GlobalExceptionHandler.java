@@ -9,6 +9,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @RestControllerAdvice
 @Slf4j
@@ -23,6 +24,13 @@ public class GlobalExceptionHandler {
     public ApiResp<?> accessDenied(AccessDeniedException e) {
         log.info("Access denied", e);
         return ApiError.code(403).message("{access.denied}");
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiResp<?> noResourceFound(NoResourceFoundException e) {
+        log.error("No resource found: {}", e.getResourcePath());
+        return ApiError.code(404).message("{resource.not_found}");
     }
 
     @ExceptionHandler

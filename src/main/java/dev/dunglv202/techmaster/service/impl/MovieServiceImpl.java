@@ -2,7 +2,6 @@ package dev.dunglv202.techmaster.service.impl;
 
 import dev.dunglv202.techmaster.dto.resp.DetailMovieDTO;
 import dev.dunglv202.techmaster.dto.resp.MovieDTO;
-import dev.dunglv202.techmaster.entity.Movie;
 import dev.dunglv202.techmaster.exception.ClientVisibleException;
 import dev.dunglv202.techmaster.mapper.MovieMapper;
 import dev.dunglv202.techmaster.model.Pagination;

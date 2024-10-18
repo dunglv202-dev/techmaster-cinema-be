@@ -5,8 +5,10 @@ import dev.dunglv202.techmaster.dto.resp.BookingDTO;
 import dev.dunglv202.techmaster.model.Pagination;
 import dev.dunglv202.techmaster.model.ResultPage;
 
-public interface TicketService {
+public interface BookingService {
     void bookTickets(BookingRequest booking);
 
     ResultPage<BookingDTO> getAllBookings(Pagination pagination);
+
+    String buildPaymentUrl(long bookingId, String ipAddress);
 }

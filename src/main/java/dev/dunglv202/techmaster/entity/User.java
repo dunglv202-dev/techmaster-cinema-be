@@ -30,4 +30,9 @@ public class User extends Auditable {
     private String phone;
 
     private String password;
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof User user && user.getId() != null && user.getId().equals(this.id);
+    }
 }

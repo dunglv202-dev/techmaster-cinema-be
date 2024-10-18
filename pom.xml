@@ -18,6 +18,7 @@
 		<java.version>17</java.version>
 		<jjwt.version>0.12.3</jjwt.version>
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
+        <apache.codec.version>1.17.1</apache.codec.version>
 	</properties>
 
 	<dependencies>
@@ -92,6 +93,13 @@
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
 			<version>${org.mapstruct.version}</version>
+		</dependency>
+
+		<!-- ENCRYPTION -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>${apache.codec.version}</version>
 		</dependency>
 	</dependencies>
 

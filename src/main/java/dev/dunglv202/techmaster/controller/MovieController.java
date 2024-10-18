@@ -31,8 +31,7 @@ public class MovieController {
         return movieService.getDetailMovie(id);
     }
 
-    @RequestMapping("/{movieId}/schedules")
-    @GetMapping
+    @GetMapping("/{movieId}/schedules")
     public List<CinemaSchedule> getAllSchedules(@PathVariable long movieId, ScheduleFilter filter) {
         return scheduleService.getAllSchedules(movieId, filter);
     }

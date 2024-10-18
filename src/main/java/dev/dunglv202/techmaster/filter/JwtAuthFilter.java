@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Component;
@@ -73,7 +74,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         Authentication authentication = new PreAuthenticatedAuthenticationToken(
             AuthUser.forUserId(Long.parseLong(claims.getSubject())),
             null,
-            List.of()
+            List.of(new SimpleGrantedAuthority("ROLE_USER"))
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }

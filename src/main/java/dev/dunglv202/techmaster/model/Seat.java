@@ -23,6 +23,7 @@ public class Seat {
     public enum Status {
         VACANT,
         OCCUPIED,
-        NOT_AVAILABLE
+        NOT_AVAILABLE,
+        PENDING
     }
 }

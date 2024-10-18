@@ -1,11 +1,15 @@
 package dev.dunglv202.techmaster.service.impl;
 
 import dev.dunglv202.techmaster.constant.BookingStatus;
-import dev.dunglv202.techmaster.dto.req.BookingDTO;
+import dev.dunglv202.techmaster.dto.req.BookingRequest;
+import dev.dunglv202.techmaster.dto.resp.BookingDTO;
 import dev.dunglv202.techmaster.entity.Booking;
 import dev.dunglv202.techmaster.entity.Schedule;
+import dev.dunglv202.techmaster.entity.User;
 import dev.dunglv202.techmaster.exception.ClientVisibleException;
 import dev.dunglv202.techmaster.mapper.BookingMapper;
+import dev.dunglv202.techmaster.model.Pagination;
+import dev.dunglv202.techmaster.model.ResultPage;
 import dev.dunglv202.techmaster.model.Seat;
 import dev.dunglv202.techmaster.repository.BookingRepository;
 import dev.dunglv202.techmaster.repository.ScheduleRepository;
@@ -15,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +31,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     @Transactional
-    public void placeTickets(BookingDTO booking) {
+    public void bookTickets(BookingRequest booking) {
         Schedule schedule = scheduleRepository.findById(booking.getScheduleId())
             .orElseThrow(() -> new ClientVisibleException("{schedule.invalid}"));
 
@@ -47,8 +50,13 @@ public class TicketServiceImpl implements TicketService {
         Booking newBooking = BookingMapper.INSTANCE.toBooking(booking);
         newBooking.setSchedule(schedule);
         newBooking.setUser(authHelper.getSignedUser());
-        newBooking.setTimestamp(LocalDateTime.now());
         newBooking.setStatus(BookingStatus.PENDING_PAYMENT);
         bookingRepository.save(newBooking);
+    }
+
+    @Override
+    public ResultPage<BookingDTO> getAllBookings(Pagination pagination) {
+        User user = authHelper.getSignedUser();
+        return new ResultPage<>(bookingRepository.findAllByUser(user, pagination.toPageable()).map(BookingMapper.INSTANCE::toBookingDTO));
     }
 }

@@ -4,6 +4,7 @@ import dev.dunglv202.techmaster.constant.BookingStatus;
 import dev.dunglv202.techmaster.dto.req.BookingRequest;
 import dev.dunglv202.techmaster.dto.resp.BookingDTO;
 import dev.dunglv202.techmaster.entity.Booking;
+import dev.dunglv202.techmaster.entity.Booking_;
 import dev.dunglv202.techmaster.entity.Schedule;
 import dev.dunglv202.techmaster.entity.User;
 import dev.dunglv202.techmaster.exception.ClientVisibleException;
@@ -16,6 +17,7 @@ import dev.dunglv202.techmaster.repository.ScheduleRepository;
 import dev.dunglv202.techmaster.service.TicketService;
 import dev.dunglv202.techmaster.util.AuthHelper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,6 +58,9 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public ResultPage<BookingDTO> getAllBookings(Pagination pagination) {
         User user = authHelper.getSignedUser();
-        return new ResultPage<>(bookingRepository.findAllByUser(user, pagination.toPageable()).map(BookingMapper.INSTANCE::toBookingDTO));
+        Sort latestFirst = Sort.by(Sort.Direction.DESC, Booking_.TIMESTAMP);
+        var page = bookingRepository.findAllByUser(user, pagination.toPageable().withSort(latestFirst))
+            .map(BookingMapper.INSTANCE::toBookingDTO);
+        return new ResultPage<>(page);
     }
 }

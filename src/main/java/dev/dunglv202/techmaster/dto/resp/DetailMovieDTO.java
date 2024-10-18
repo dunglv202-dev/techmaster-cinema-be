@@ -9,6 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 public class DetailMovieDTO {
+    private long id;
     private String name;
     private String thumbnail;
     private String trailer;

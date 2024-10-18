@@ -32,6 +32,9 @@ public class Schedule extends Auditable {
     @ManyToOne
     private Cinema cinema;
 
+    @ManyToOne
+    private Room room;
+
     @JdbcTypeCode(SqlTypes.JSON)
     private List<List<Seat>> seats;
 
@@ -49,7 +52,7 @@ public class Schedule extends Auditable {
 
     public double getPrice(Seat seat) {
         return switch (seat.getType()) {
-            case NORMAL -> prices.getNormalPrice();
+            case STANDARD -> prices.getNormalPrice();
             case VIP -> prices.getVipPrice();
         };
     }

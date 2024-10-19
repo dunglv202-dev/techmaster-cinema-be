@@ -103,6 +103,21 @@ public class BookingServiceImpl implements BookingService {
         return paymentService.buildPaymentUrl(paymentInfo);
     }
 
+    @Override
+    public void cancelBooking(long bookingId) {
+        User signedUser = authHelper.getSignedUser();
+        Booking booking = bookingRepository.findById(bookingId)
+            .filter(b -> b.getUser().equals(signedUser))
+            .orElseThrow(() -> new ClientVisibleException("{booking.invalid}"));
+
+        if (!booking.isCancelable()) {
+            throw new ClientVisibleException("{booking.not_cancelable}");
+        }
+
+        booking.setStatus(BookingStatus.CANCELED);
+        bookingRepository.save(booking);
+    }
+
     private String generatePaymentRef(Booking booking) {
         Random random = new Random();
         String characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

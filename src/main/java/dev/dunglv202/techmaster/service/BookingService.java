@@ -11,4 +11,6 @@ public interface BookingService {
     ResultPage<BookingDTO> getAllBookings(Pagination pagination);
 
     String buildPaymentUrl(long bookingId, String ipAddress);
+
+    void cancelBooking(long bookingId);
 }

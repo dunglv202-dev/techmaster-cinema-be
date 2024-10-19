@@ -48,4 +48,8 @@ public class Booking extends Auditable {
     public boolean isPayable() {
         return status == BookingStatus.PENDING_PAYMENT && LocalDateTime.now().isBefore(paymentDeadline);
     }
+
+    public boolean isCancelable() {
+        return status == BookingStatus.PENDING_PAYMENT;
+    }
 }

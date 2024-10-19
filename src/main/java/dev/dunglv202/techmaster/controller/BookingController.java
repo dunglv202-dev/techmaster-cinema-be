@@ -39,4 +39,10 @@ public class BookingController {
         String paymentLink = bookingService.buildPaymentUrl(id, HttpUtils.extractIpAddress(request));
         response.sendRedirect(paymentLink);
     }
+
+    @PostMapping("/{id}/cancel")
+    @PreAuthorize("hasRole('USER')")
+    public void cancelBooking(@PathVariable long id) {
+        bookingService.cancelBooking(id);
+    }
 }

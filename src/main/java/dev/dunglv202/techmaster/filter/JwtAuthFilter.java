@@ -2,7 +2,6 @@ package dev.dunglv202.techmaster.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.dunglv202.techmaster.dto.ApiError;
-import dev.dunglv202.techmaster.dto.ApiResp;
 import dev.dunglv202.techmaster.model.auth.AuthUser;
 import dev.dunglv202.techmaster.util.AuthHelper;
 import dev.dunglv202.techmaster.util.JwtProvider;

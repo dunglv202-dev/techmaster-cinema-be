@@ -1,6 +1,7 @@
 package dev.dunglv202.techmaster.service.impl;
 
 import dev.dunglv202.techmaster.constant.BookingStatus;
+import dev.dunglv202.techmaster.constant.GeneralConfig;
 import dev.dunglv202.techmaster.dto.req.BookingRequest;
 import dev.dunglv202.techmaster.dto.resp.BookingDTO;
 import dev.dunglv202.techmaster.entity.Booking;
@@ -63,6 +64,7 @@ public class BookingServiceImpl implements BookingService {
         newBooking.setSchedule(schedule);
         newBooking.setUser(authHelper.getSignedUser());
         newBooking.setStatus(BookingStatus.PENDING_PAYMENT);
+        newBooking.setPaymentDeadline(newBooking.getTimestamp().plus(GeneralConfig.PAYMENT_DEADLINE));
         newBooking = bookingRepository.save(newBooking);
 
         // Update payment

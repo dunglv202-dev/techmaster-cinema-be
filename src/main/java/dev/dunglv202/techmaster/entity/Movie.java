@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -30,6 +31,10 @@ public class Movie extends Auditable {
 
     @ElementCollection
     private List<String> actors;
+
+    private LocalDateTime premiereDate;
+
+    private LocalDateTime finalScreening;
 
     @ManyToMany
     private List<Category> categories;

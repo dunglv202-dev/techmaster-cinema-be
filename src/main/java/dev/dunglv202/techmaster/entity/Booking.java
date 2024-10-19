@@ -1,7 +1,6 @@
 package dev.dunglv202.techmaster.entity;
 
 import dev.dunglv202.techmaster.constant.BookingStatus;
-import dev.dunglv202.techmaster.constant.GeneralConfig;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +27,7 @@ public class Booking extends Auditable {
     @ElementCollection
     private List<String> seats;
 
-    private LocalDateTime timestamp;
+    private LocalDateTime timestamp = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
@@ -41,11 +40,9 @@ public class Booking extends Auditable {
 
     @PrePersist
     public void prePersist() {
-        if (timestamp == null) timestamp = LocalDateTime.now();
         grandTotal = seats.stream()
             .map(schedule::getSeat).map(schedule::getPrice)
             .reduce(Double::sum).orElse(0.0);
-        paymentDeadline = timestamp.plus(GeneralConfig.PAYMENT_DEADLINE);
     }
 
     public boolean isPayable() {

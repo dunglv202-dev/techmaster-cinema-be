@@ -1,5 +1,6 @@
 package dev.dunglv202.techmaster.controller;
 
+import dev.dunglv202.techmaster.dto.req.MovieFilter;
 import dev.dunglv202.techmaster.dto.req.ScheduleFilter;
 import dev.dunglv202.techmaster.dto.resp.CinemaSchedule;
 import dev.dunglv202.techmaster.dto.resp.DetailMovieDTO;
@@ -24,8 +25,8 @@ public class MovieController {
     private final ScheduleService scheduleService;
 
     @GetMapping
-    public ResultPage<MovieDTO> getAllMovies(Pagination pagination) {
-        return movieService.getAllMovies(pagination);
+    public ResultPage<MovieDTO> getAllMovies(MovieFilter filter, Pagination pagination) {
+        return movieService.getAllMovies(filter, pagination);
     }
 
     @GetMapping("/{id}")

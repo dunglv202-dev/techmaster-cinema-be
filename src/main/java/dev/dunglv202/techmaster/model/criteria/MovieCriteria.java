@@ -23,7 +23,10 @@ public class MovieCriteria {
 
     private Specification<Movie> isNowShowing(@Nullable Boolean showing) {
         if (showing == null) return Specification.where(null);
-        return (root, query, cb) -> cb.greaterThanOrEqualTo(root.get(Movie_.finalScreening), LocalDateTime.now());
+        return (root, query, cb) -> cb.and(
+            cb.greaterThanOrEqualTo(root.get(Movie_.finalScreening), LocalDateTime.now()),
+            cb.lessThanOrEqualTo(root.get(Movie_.premiereDate), LocalDateTime.now())
+        );
     }
 
     private Specification<Movie> isComingSoon(@Nullable Boolean comingSoon) {

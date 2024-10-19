@@ -15,7 +15,7 @@ public class DetailMovieDTO {
     private String trailer;
     private int durationInMinutes;
     private String description;
-    private List<Category> categories;
+    private List<String> categories;
     private String director;
     private List<String> actors;
     private boolean liked;

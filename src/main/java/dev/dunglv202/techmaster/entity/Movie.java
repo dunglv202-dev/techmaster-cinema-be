@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,7 +31,7 @@ public class Movie extends Auditable {
 
     private String director;
 
-    @ElementCollection
+    @JdbcTypeCode(SqlTypes.JSON)
     private List<String> actors;
 
     private LocalDateTime premiereDate;

@@ -35,9 +35,8 @@ public class BookingController {
 
     @GetMapping("/{id}/pay")
     @PreAuthorize("hasRole('USER')")
-    public void payTickets(@PathVariable long id, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String paymentLink = bookingService.buildPaymentUrl(id, HttpUtils.extractIpAddress(request));
-        response.sendRedirect(paymentLink);
+    public String payTickets(@PathVariable long id, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return bookingService.buildPaymentUrl(id, HttpUtils.extractIpAddress(request));
     }
 
     @PostMapping("/{id}/cancel")

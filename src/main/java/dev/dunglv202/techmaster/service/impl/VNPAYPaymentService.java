@@ -69,7 +69,8 @@ public class VNPAYPaymentService implements PaymentService {
     public void handleCallback(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Check if successful
         if (!STATUS_SUCCESS.equals(request.getParameter("vnp_TransactionStatus"))) {
-            throw new ClientVisibleException("{payment.failed}");
+            response.sendRedirect("/me/tickets");
+            return;
         }
 
         // Verify payment with checksum

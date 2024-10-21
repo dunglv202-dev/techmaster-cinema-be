@@ -5,6 +5,7 @@ COPY ./src ./src
 RUN --mount=type=cache,target=/root/.m2 mvn clean package
 
 FROM eclipse-temurin:17-jdk-alpine
+ENV TZ=Asia/Ho_Chi_Minh
 WORKDIR /usr/dunglv202/techmastercinema
 COPY --from=build /usr/dunglv202/techmastercinema/target/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]

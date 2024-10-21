@@ -13,7 +13,9 @@ import dev.dunglv202.techmaster.util.AuthHelper;
 import dev.dunglv202.techmaster.util.JwtProvider;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,10 +39,14 @@ public class AuthServiceImpl implements AuthService {
             credential.getUsername(),
             credential.getPassword()
         );
-        Authentication authentication = authenticationManager.authenticate(authToken);
-        AuthUser authUser = (AuthUser) authentication.getPrincipal();
+        try {
+            Authentication authentication = authenticationManager.authenticate(authToken);
+            AuthUser authUser = (AuthUser) authentication.getPrincipal();
 
-        return authHelper.buildAuthResult(authUser.user());
+            return authHelper.buildAuthResult(authUser.user());
+        } catch (BadCredentialsException e) {
+            throw new ClientVisibleException(HttpStatus.UNAUTHORIZED, 401, "{credential.invalid}");
+        }
     }
 
     @Override

@@ -21,5 +21,4 @@ payment:
     code: ${VNPAY_TMN_CODE} # merchant code
     secret: ${VNPAY_SECRET_KEY}
     url: ${VNPAY_PAYMENT_URL}
-    query-url: ${VNPAY_QUERY_URL}
     callback: ${VNPAY_CALLBACK_URL}
